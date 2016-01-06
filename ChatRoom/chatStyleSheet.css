@@ -1,0 +1,18 @@
+.chatUser{
+    text-align: center;
+    color: crimson;
+    position: absolute;
+    margin-left: auto;
+}
+
+.chatMessage{
+    text-align: center;
+    color: darkgreen;
+
+    position: absolute;
+    margin-left: 140px;
+}
+
+h1{
+    color: dodgerblue;
+}

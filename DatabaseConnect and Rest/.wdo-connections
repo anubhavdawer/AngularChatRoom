@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections:connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:connections="http://www.ibm.com/websphere/wdo/connections">
+  <connection id="New Oracle">
+    <development xsi:type="connections:rsc-live-connection" id="New Oracle_dev" name="New Oracle"/>
+    <runtime xsi:type="connections:driver-manager-connection" auto-deploy="true" class-location="C:\Users\adawer\Downloads\ojdbc6.jar" id="New Oracle_runtime" class-name="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@localhost:1521:xe" userid="sys as sysdba"/>
+  </connection>
+</connections:connections>
