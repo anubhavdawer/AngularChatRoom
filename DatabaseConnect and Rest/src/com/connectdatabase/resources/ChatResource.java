@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.anubhav.dao.ChatsDao;
+import com.anubhav.entity.Chats;
 import com.connectdatabase.dao.ChatDao;
 import com.connectdatabase.dto.ChatDto;
 
@@ -26,10 +28,16 @@ public class ChatResource {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ChatDto> getChats(){
-		List<ChatDto>list=new ArrayList<ChatDto>();
+	public List<Chats> getChats(){
+		/*List list=new ArrayList();
 		ChatDao dao=new ChatDao();
 		list=dao.getChats();
+		return list;
+		*/
+		
+		List<Chats> list=new ArrayList();
+		ChatsDao chatsDao=new ChatsDao();
+		list=chatsDao.getChats();
 		return list;
 	}
 	
@@ -42,7 +50,10 @@ public class ChatResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public String addChat(ChatDto dto){
-		ChatDao dao=new ChatDao();
+	/*	ChatDao dao=new ChatDao();
+		return dao.addChat(dto);*/
+		
+		ChatsDao dao=new ChatsDao();
 		return dao.addChat(dto);
 	}
 }
