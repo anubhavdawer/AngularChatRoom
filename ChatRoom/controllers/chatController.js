@@ -8,7 +8,7 @@ angular.module('myApp',[])
         self.newchat={};
         $http.get("http://localhost:8080/ConnectDatabase/rest/chats")
             .then(function(response) {
-                self.chats = response.data.chatDto;
+                self.chats = response.data.chats;
             },function(errResponse){
                 console.error("fetch Error");
             });
