@@ -12,24 +12,23 @@
             <a  href="#/" ng-hide="myService.val"><strong>Home</strong></a>&nbsp;
             <a  href="#/login" ng-hide="myService.val"><strong>Login</strong></a>&nbsp;
             <a  href ="#/registration" ng-hide="myService.val"><strong>SignUp</strong></a>&nbsp;
-            <a href="#/security" ng-hide="myService.security"><strong>My Details</strong></a></a><br><br>
+            <a href="#/security" ng-hide="myService.security"><strong>My Details</strong></a>&nbsp;
+            <!--<a href="#/changepassword" ng-hide="myService.changepassword"><strong>Account Security</strong></a>-->
         </div>
         <div ng-view ></div>
 
     </div><br><br>
 
 </body>
-<!--
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>-->
 
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/angular-route/angular-route.min.js"></script>
-<script src="bower_components/jquery/src/jquery.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/bootstrap/dist/css/bootstrap.css"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+<!--
+<script type=text/javascript src="bower_components/angular/angular.js"></script>
+<script type=text/javascript src="bower_components/angular-route/angular-route.js"></script>
+<script type=text/javascript src="bower_components/jquery/src/jquery.js"></script>-->
+<script type=text/javascript src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script type=text/css src="bower_components/bootstrap/dist/css/bootstrap.css"></script>
 <script>
      var app=angular.module('MainApp',['ngRoute']);
             app.config(['$routeProvider',function($routeProvider){
@@ -53,6 +52,24 @@
                                 }
                             }
                         })
+                        /*.when('/changepassword',{
+                            templateUrl: 'AccountSecSettings.html',
+                            controller:'accPassCtrl',
+                            resolve:{
+                                app:function($q,myService){
+                                    var defer=$q.defer();
+                                    if(myService.user!=''){
+                                        defer.resolve();
+                                        return defer.promise;
+                                    }
+                                    else{
+                                        return defer.promise;
+                                    }
+                                }
+                            }
+
+
+                        })*/
                         .when('/login',{
                             templateUrl:'login.html',
                             controller: 'loginCtrl'
@@ -114,6 +131,9 @@
 
 
             }]);
+        /*    app.controller('accPassCtrl',['$scope','$http','$location',function($scope,$http,$location){
+
+            }]);*/
             app.controller('securityCtrl',['$scope','$http','$location','myService',function($scope,$http,$location,myService){
                 $scope.myService=myService;
                 $scope.userid=myService.user;
@@ -211,6 +231,7 @@
                 this.register='';
                 this.val='false';
                 this.security='true';
+                this.changepassword='true';
 
             });
 

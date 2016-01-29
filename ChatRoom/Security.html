@@ -13,39 +13,39 @@
 
 <div >
 <form  name="save" ng-submit="update()">
-
+<!-- wrapping forms inside div with class form-group provides optimum spacing -->
     <div class="form-group">
-        <label for="address1" class="control-label col-xs-10">Address1:</label>
+        <label for="address1" class="control-label col-xs-5">Address1:</label>
         <div class="col-xs-10">
         <input type="text" class="input-sm" id="address1" ng-model="record.address1" ng-disabled="disabled">
         </div>
         </div>
     <div class="form-group">
-        <label for="address2" class="control-label col-xs-10">Address2:</label>
+        <label for="address2" class="control-label col-xs-5">Address2:</label>
         <div class="col-xs-10">
         <input type="text" class="input-sm" id="address2" ng-model="record.address2" ng-disabled="disabled">
         </div>
     </div>
     <div class="form-group">
-        <label for="city" class="control-label col-xs-10">City:</label>
+        <label for="city" class="control-label col-xs-5">City:</label>
         <div class="col-xs-10">
         <input type="text" class="input-sm" id="city" ng-model="record.city" ng-disabled="disabled">
         </div>
     </div>
     <div class="form-group" >
-        <label for="state" class="control-label col-xs-10" >State:</label>
+        <label for="state" class="control-label col-xs-5" >State:</label>
         <div class="col-xs-10">
             <input type="text" class="input-sm" id="state" ng-model="record.state" ng-disabled="disabled">
         </div>
     </div>
     <div class="form-group">
-        <label for="zipcode" class="control-label col-xs-10">Zipcode:</label>
+        <label for="zipcode" class="control-label col-xs-5">Zipcode:</label>
         <div class="col-xs-10">
             <input type="text" class="input-sm" id="zipcode" ng-model="record.zipcode" ng-disabled="disabled">
         </div>
     </div>
     <div class="form-group">
-       <label ng-show="show" class="control-label col-xs-10">Enter Password:</label>
+       <label ng-show="show" class="control-label col-xs-5">Enter Password:</label>
         <div class="col-xs-10">
             <input type="text" ng-model="password" ng-required="true" ng-show="show">
         </div>
