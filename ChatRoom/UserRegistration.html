@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <style>
+        input{
+            width: 150px;
+            vertical-align: middle;
+        }
+        textarea{
+            width:150px;
+            height:100px;
+            vertical-align: middle;
+        }
+        .input{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<form ng-submit="register()" name="addForm">
+    Userid:&nbsp;<input class="input" type="text" ng-model="newuser.userId" ng-required="true" ><br>
+    Password:&nbsp;<input class="input" type="password" ng-model="newuser.password" ng-required="true"><br>
+    FirstName:&nbsp;<input  class="input" type="text" ng-model="newuser.firstName"><br>
+    MiddleName:&nbsp;<input  class="input" type="text" ng-model="newuser.middleName"><br>
+    LastName:&nbsp;<input class="input" type="text" ng-model="newuser.lastName"><br>
+    Address1:&nbsp;<input class="input" type="text" ng-model="newuser.address1"><br>
+    Address2:&nbsp;<input class="input" type="text" ng-model="newuser.address2"><br>
+    City:&nbsp;<input class="input" type="text" ng-model="newuser.city"><br>
+    State:&nbsp;<input class="input" type="text" ng-model="newuser.state"><br>
+    Age:&nbsp;<input class="input" type="text" ng-model="newuser.Age"><br>
+    Zipcode:&nbsp;<input class="input" type="text" ng-model="newuser.zipcode"><br>
+    Phone:&nbsp;<input class="input" type="text" ng-model="newuser.phoneNumber" ng-minlength="10" ng-maxlength="10"><br>
+    <input class="submit" type="submit" value="register">
+
+</form>
+</body>
+</html>

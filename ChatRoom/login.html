@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MainApp">
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <style>
+        .input{
+            display: block;
+        }
+
+    </style>
+</head>
+<body >
+
+<form ng-submit="verify()" name="addForm" >
+    UserId:&nbsp;<input class="input" type="text" ng-model="newuser.userId" ng-required="true" ><br>
+    Password:&nbsp;<input class="input"type="password" ng-model="newuser.password" ng-required="true"><br>
+
+    <input class="submit" type="submit" value="Login" >
+
+</form>
+{{message}}
+{{myService.register}}
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MainApp">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatRoom HomePage</title>
+</head>
+<body ng-style="{'background':'lightblue'}">
+    <div>
+
+        <h1></h1>
+        <div ng-style="{'width':'250px'}" ng-controller="homeCtrl">
+            <a  href="#/" ng-hide="myService.val"><strong>Home</strong></a>&nbsp;
+            <a  href="#/login" ng-hide="myService.val"><strong>Login</strong></a>&nbsp;
+            <a  href ="#/registration" ng-hide="myService.val"><strong>SignUp</strong></a>&nbsp;
+            <a href="#/security" ng-hide="myService.security"><strong>My Details</strong></a></a><br><br>
+        </div>
+        <div ng-view ></div>
+
+    </div><br><br>
+
+</body>
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>-->
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/jquery/src/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/bootstrap/dist/css/bootstrap.css"></script>
+<script>
+     var app=angular.module('MainApp',['ngRoute']);
+            app.config(['$routeProvider',function($routeProvider){
+                $routeProvider.when('/',{
+                            template:'<h1>HomePage</h1>'
+
+                        })
+                        .when('/security',{
+                            templateUrl:'Security.html',
+                            controller:'securityCtrl',
+                            resolve:{
+                                app: function($q,myService){
+                                    var defer=$q.defer();
+                                    if(myService.user!=''){
+                                        defer.resolve();
+                                        return defer.promise
+                                    }
+                                    else{
+                                        return defer.promise;
+                                    }
+                                }
+                            }
+                        })
+                        .when('/login',{
+                            templateUrl:'login.html',
+                            controller: 'loginCtrl'
+
+                        })
+                        .when('/chatroom',{
+                            templateUrl:'chatroom.html',
+                            controller: 'chatCtrl',
+                            resolve:{
+                                app: function($q,myService){
+                                    var defer=$q.defer();
+                                    if(myService.user!=''){
+                                        defer.resolve();
+                                    return defer.promise
+                                    }
+                                    else{
+                                        return defer.promise;
+                                    }
+                                }
+                            }
+                        })
+                        .when('/registration',{
+                            templateUrl: 'UserRegistration.html',
+                            controller:'registration'
+                        })
+                        .otherwise({
+                            redirectTo:'/'
+                        })
+
+            }]);
+            app.controller('homeCtrl',['$scope','myService',function($scope,myService){
+                $scope.myService=myService;
+
+            }]);
+           app.controller('loginCtrl',['$scope','$http','$location','myService',function($scope,$http,$location,myService){
+               $scope.newuser={};
+               $scope.message='';
+               $scope.myService=myService;
+
+
+               $scope.verify= function(){
+                   myService.register='';
+                   $http.post("http://localhost:8080/ConnectDatabase/rest/registration/verify",$scope.newuser)
+                           .then(function(response){
+                               $scope.message=response.data;
+                                myService.user=$scope.newuser.userId;
+                               if(response.data==="success"){
+                                   $location.path('/chatroom');
+                               }else{
+                                   console.log("Error Login");
+                                   $location.path('/login');
+                                   $scope.message="Incorrect Info";
+
+                               }
+                               $scope.newuser={};
+
+                           });
+               };
+
+
+            }]);
+            app.controller('securityCtrl',['$scope','$http','$location','myService',function($scope,$http,$location,myService){
+                $scope.myService=myService;
+                $scope.userid=myService.user;
+                $scope.record={};
+                $scope.newrecord={};
+                $scope.disabled=true;
+                $scope.message='';
+                $scope.password='';
+                $scope.show='false';
+               myService.security='true';
+                $http.get("http://localhost:8080/ConnectDatabase/rest/registration/"+$scope.userid)
+                        .then(function(response){
+                            $scope.record=response.data;
+                        });
+              $scope.enable=function(){
+                  $scope.disabled=false;
+                    $scope.hide='true';
+                    $scope.show='true';
+                };
+                $scope.update=function(){
+                    $scope.newrecord={
+                        password:$scope.password,
+                        address1:$scope.record.address1,
+                        address2:$scope.record.address2,
+                        city:$scope.record.city,
+                        state:$scope.record.state,
+                        zipcode:$scope.record.zipcode
+                    };
+                  $http.post("http://localhost:8080/ConnectDatabase/rest/registration/address/"+$scope.userid,$scope.newrecord)
+                          .then(function(response){
+                              if(response.data==="address updated successfully"){
+                             $scope.message=response.data;
+                              $scope.hide='true';
+                              $scope.show='false';
+                              $scope.disabled=true;
+                                  $scope.$apply();
+                              }else{
+                                  $scope.message=response.data;
+                              }
+                              $scope.hide='true';
+                              $scope.show='false';
+                              $scope.disabled=true;
+                              $scope.$apply();
+                          });
+                };
+            }]);
+            app.controller('chatCtrl',['$scope','$http','$location','myService',function($scope,$http,$location,myService){
+                $scope.chats=[];
+                $scope.newchat={};
+                $scope.myService=myService;
+                myService.val='true';
+                myService.security='false';
+
+
+                $http.get("http://localhost:8080/ConnectDatabase/rest/chats")
+                        .then(function(response){
+                            $scope.chats=response.data.chats;
+                        });
+                $scope.add=function(){
+                    $http.post("http://localhost:8080/ConnectDatabase/rest/chats",$scope.newchat)
+                            .then(function(response){
+                                $scope.chats.push($scope.newchat);
+                                $scope.newchat={};
+
+                            });
+
+                };
+                $scope.logout=function(){
+                    $location.path('/login');
+                    myService.user='';
+                    myService.val='false';
+                    $scope.$apply();
+                };
+            }]);
+            app.controller('registration',['$scope','$http','$location','myService',function($scope,$http,$location,myService){
+                    $scope.users=[];
+                    $scope.newuser={};
+                    $scope.myService=myService;
+                    $scope.register =function(){
+                        $http.post("http://localhost:8080/ConnectDatabase/rest/registration",$scope.newuser)
+                                .then(function (response) {
+                                    if(response.data==="success"){
+                                        console.log("Registration Success");
+                                        myService.register='Registration Successful, Please Login';
+                                        $location.path('/login')
+                                    }else{
+                                        $location.path('/registration');
+                                        console.log("Error in Registration");
+                                    }
+                                });
+                    };
+            }]);
+            app.service('myService',function(){
+                this.user='';
+                this.register='';
+                this.val='false';
+                this.security='true';
+
+            });
+
+
+
+
+</script>
+</body>
+</html>

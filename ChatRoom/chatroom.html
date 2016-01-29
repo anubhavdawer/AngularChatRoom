@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        span{
+            color: chocolate;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+</head>
+<body>
+<h2>
+<div>
+    <form name="logoutForm" ng-submit="logout()">
+        <input type="submit" value="logout" >
+    </form>
+</div><br><br>
+    Welcome to ChatRoom {{myService.user}}</h2>
+    <h3>Please do not refresh</h3>
+<br>
+<div ng-repeat="chat in chats">
+    ChatUser: <span>{{chat.chatuser}}</span>&nbsp;&nbsp;
+    ChatMessage:<span>{{chat.chatmessage}}</span>
+</div>
+
+<div>
+    <form name="addForm" ng-submit="add()">
+        <input type="text" ng-model="newchat.chatuser" placeholder="chatuser">
+        <input type="text" ng-model="newchat.chatmessage" placeholder="chatmessage">
+        <input type="submit" value="add">
+    </form>
+</div>
+
+</body>
+</html>

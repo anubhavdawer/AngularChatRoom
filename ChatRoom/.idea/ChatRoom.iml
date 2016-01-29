@@ -5,7 +5,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="angular.min.js" level="project" />
-    <orderEntry type="library" name="angular.js" level="project" />
     <orderEntry type="library" name="angular-resource.js" level="project" />
+    <orderEntry type="library" name="angular.js" level="project" />
+    <orderEntry type="library" name="angular-route.js" level="project" />
   </component>
 </module>
